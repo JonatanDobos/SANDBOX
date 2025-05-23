@@ -1,55 +1,103 @@
 #include "../include/main.h"
 
-int	init_SDL(t_smain *sm)
+int	init_SDL(t_app *app)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
 		return (1);
 	}
-	sm->win = SDL_CreateWindow("SDL2 macOS Test",
+	app->win = SDL_CreateWindow("Game of Life",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		640, 480,
-		SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
-	if (!sm->win)
+		WIN_W, WIN_H, SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+	if (!app->win)
 	{
 		fprintf(stderr, "Window Error: %s\n", SDL_GetError());
 		SDL_Quit();
 		return (1);
 	}
-	sm->renderer = SDL_CreateRenderer(sm->win, -1, \
+	app->renderer = SDL_CreateRenderer(app->win, -1, \
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (!sm->renderer)
+	if (!app->renderer)
 	{
 		fprintf(stderr, "Renderer Error: %s\n", SDL_GetError());
-		SDL_DestroyWindow(sm->win);
+		SDL_DestroyWindow(app->win);
 		SDL_Quit();
 		return (1);
 	}
 	return (0);
 }
 
-int main(void)
+void	init_grid(t_app *app)
 {
-	t_smain	sm;
+	int	y;
+	int	x;
 
-	if (init_SDL(&sm))
+	srand(time(NULL));
+	y = 0;
+	while (y < GRID_ROWS)
+	{
+		x = 0;
+		while (x < GRID_COLS)
+		{
+			app->grid[y][x] = rand() % 2;
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_grid(t_app *app)
+{
+	int	y;
+	int	x;
+	SDL_Rect cell;
+
+	y = 0;
+	while (y < GRID_ROWS)
+	{
+		x = 0;
+		while (x < GRID_COLS)
+		{
+			cell.x = x * CELL_WIDTH;
+			cell.y = y * CELL_HEIGHT;
+			cell.w = CELL_WIDTH;
+			cell.h = CELL_HEIGHT;
+			if (app->grid[y][x])
+				SDL_SetRenderDrawColor(app->renderer, 255, 255, 255, 255);
+			else
+				SDL_SetRenderDrawColor(app->renderer, 0, 0, 0, 255);
+			SDL_RenderFillRect(app->renderer, &cell);
+			x++;
+		}
+		y++;
+	}
+}
+
+int	main(void)
+{
+	t_app	app;
+	int		running;
+
+	if (init_SDL(&app))
 		return (1);
-	SDL_SetRenderDrawColor(sm.renderer, 0, 128, 255, 255);
-	SDL_RenderClear(sm.renderer);
-	SDL_RenderPresent(sm.renderer);
-	int running = 1;
+	init_grid(&app);
+	running = 1;
 	while (running)
 	{
-		while (SDL_PollEvent(&sm.e))
+		while (SDL_PollEvent(&app.e))
 		{
-			if (sm.e.type == SDL_QUIT)
+			if (app.e.type == SDL_QUIT)
 				running = 0;
 		}
-		SDL_Delay(16);
+		SDL_SetRenderDrawColor(app.renderer, 0, 0, 0, 255);
+		SDL_RenderClear(app.renderer);
+		draw_grid(&app);
+		SDL_RenderPresent(app.renderer);
+		SDL_Delay(100);
 	}
-	SDL_DestroyRenderer(sm.renderer);
-	SDL_DestroyWindow(sm.win);
+	SDL_DestroyRenderer(app.renderer);
+	SDL_DestroyWindow(app.win);
 	SDL_Quit();
 	return (0);
 }

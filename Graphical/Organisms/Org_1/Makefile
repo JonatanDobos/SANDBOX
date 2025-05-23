@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g `sdl2-config --cflags`
+CFLAGS = -Wall -Wextra -Werror -g -Iinclude `sdl2-config --cflags`
 LDFLAGS = `sdl2-config --libs`
 
 SRC = src/main.c

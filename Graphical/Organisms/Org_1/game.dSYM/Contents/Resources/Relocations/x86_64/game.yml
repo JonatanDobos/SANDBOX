@@ -2,7 +2,9 @@
 triple:          'x86_64-apple-darwin'
 binary-path:     game
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_SDL, symObjAddr: 0x0, symBinAddr: 0x100003CB0, symSize: 0x150 }
-  - { offsetInCU: 0x6DA, offset: 0x6DA, size: 0x8, addend: 0x0, symName: _init_SDL, symObjAddr: 0x0, symBinAddr: 0x100003CB0, symSize: 0x150 }
-  - { offsetInCU: 0x702, offset: 0x702, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x150, symBinAddr: 0x100003E00, symSize: 0x105 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_SDL, symObjAddr: 0x0, symBinAddr: 0x100003AD0, symSize: 0x150 }
+  - { offsetInCU: 0x6DA, offset: 0x6DA, size: 0x8, addend: 0x0, symName: _init_SDL, symObjAddr: 0x0, symBinAddr: 0x100003AD0, symSize: 0x150 }
+  - { offsetInCU: 0x702, offset: 0x702, size: 0x8, addend: 0x0, symName: _init_grid, symObjAddr: 0x150, symBinAddr: 0x100003C20, symSize: 0x90 }
+  - { offsetInCU: 0x742, offset: 0x742, size: 0x8, addend: 0x0, symName: _draw_grid, symObjAddr: 0x1E0, symBinAddr: 0x100003CB0, symSize: 0xE0 }
+  - { offsetInCU: 0x790, offset: 0x790, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x2C0, symBinAddr: 0x100003D90, symSize: 0x158 }
 ...
