@@ -1,0 +1,8 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     game
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_SDL, symObjAddr: 0x0, symBinAddr: 0x100003CB0, symSize: 0x150 }
+  - { offsetInCU: 0x6DA, offset: 0x6DA, size: 0x8, addend: 0x0, symName: _init_SDL, symObjAddr: 0x0, symBinAddr: 0x100003CB0, symSize: 0x150 }
+  - { offsetInCU: 0x702, offset: 0x702, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x150, symBinAddr: 0x100003E00, symSize: 0x105 }
+...
